@@ -1,0 +1,137 @@
+Network Enumeration and Traffic Analysis
+
+Practical Assignment*
+
+Name: Mohit Pandey
+Email: [jamnapari7862@gmail.com]
+Course: CEH (Certified Ethical Hacker)
+Date: 17/12/2025
+
+---
+1. Objective
+
+The objective of this assignment is to perform network enumeration on an authorized target in order to identify live hosts, open ports, operating system details, and analyze network traffic using industry‑standard tools.
+
+---
+
+2. Target Scope
+
+The authorized target selected for this security assessment was **certifiedhacker.com**, which is publicly accessible and used strictly for educational and ethical purposes.
+
+---
+
+3. Host Discovery
+
+Command Used:
+
+bash
+ping certifiedhacker.com
+```
+
+Observations:
+
+* Host is reachable
+* 0% packet loss
+* Average latency approximately 300 ms
+
+This confirms that the target system is alive and accessible over the network.
+
+---
+
+4. Port Scanning
+
+Command Used:
+
+bash
+nmap certifiedhacker.com
+```
+
+Result:
+Multiple open ports were detected, including:
+
+* FTP (21)
+* SSH (22)
+* HTTP (80)
+* HTTPS (443)
+* MySQL (3306)
+* PostgreSQL (5432)
+
+This indicates that multiple services are exposed on the target system.
+
+---
+
+5. Stealth (SYN) Scanning**
+
+Command Used:
+
+bash
+nmap -sS -T2 certifiedhacker.com
+```
+
+Result:
+
+* Half‑open TCP SYN scan performed
+* Reduced chances of detection by IDS/Firewall
+* Used for stealth reconnaissance
+
+
+6. OS Detection
+
+Command Used:
+
+bash
+sudo nmap -O certifiedhacker.com
+```
+
+Result:
+
+* Linux‑based operating system detected
+* OS scan reliability was limited due to filtered ports and firewall restrictions
+
+---
+
+7. Firewall Analysis
+
+Command Used:
+
+bash
+nmap -Pn certifiedhacker.com
+```
+
+Observations:
+
+* Host discovery bypassed
+* Firewall filtering behavior observed
+* Some ports were filtered or blocked
+
+---
+
+8. Wireshark Traffic Analysis
+
+Wireshark was used to capture live network traffic on the **eth0** interface during the Nmap SYN scan.
+
+A display filter was applied:
+
+tcp.flags.syn == 1 && tcp.flags.ack == 0
+```
+
+The capture shows multiple TCP SYN packets sent from the attacker machine to the target server on ports 80 (HTTP) and 443 (HTTPS).
+This confirms that a **TCP SYN Stealth Scan** was successfully performed.
+
+Screenshot Evidence:
+(C:\Users\Computer Solution\Pictures\Screenshots\Screenshot 2025-12-17 193148.png)
+
+---
+
+9. Risk Analysis
+
+The target system exposes multiple services publicly, which increases the overall attack surface.
+
+100. Ethical Considerations*
+
+All scanning activities were conducted on an authorized target for educational purposes only. -
+
+11. Conclusion*
+
+This assignment successfully demonstrated host discovery, port scanning, OS detection, firewall analysis, and real‑time traffic analysis using Nmap and Wireshark, following ethical and legal guidelines.
+
